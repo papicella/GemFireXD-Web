@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Copyright (C) MARCH-2014 Pivotal Software, Inc.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+  
+  <bean id="showMembers" class="pivotal.au.se.gemfirexdweb.reports.GenericQuery">
+    <property name="queryDescription">
+      <value>Show All Members</value>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		select substr(id, 1, 48) as "Id", substr(netservers, 1, 30) as "NetServers", pid 
+		from sys.members 
+      ]]></value>
+    </property>
+  </bean>
+  
+  <bean id="viewSchemas" class="pivotal.au.se.gemfirexdweb.reports.GenericQuery">
+    <property name="queryDescription">
+      <value>View Schemas</value>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		select schemaname from sys.sysschemas
+      ]]></value>
+    </property>
+  </bean>
+
+  <bean id="viewMemoryAnalytics" class="pivotal.au.se.gemfirexdweb.reports.GenericQuery">
+    <property name="queryDescription">
+      <value>View Memory Usage of All Tables/Indexes</value>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		SELECT * FROM sys.memoryAnalytics;
+      ]]></value>
+    </property>
+  </bean>
+  
+  <bean id="viewMembersWithAsync" class="pivotal.au.se.gemfirexdweb.reports.GenericQuery">
+    <property name="queryDescription">
+      <value>members running AsyncEventListeners/DBSynchronizers with status</value>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		select m.ID DSID, m.status, s.schemaname, t.tablename, t.datapolicy, t.GATEWAYENABLED, t.servergroups 
+		from SYS.SYSTABLES t, SYS.MEMBERS m, SYS.ASYNCEVENTLISTENERS a, sys.sysschemas s
+		where groupsintersect(a.SERVER_GROUPS, m.SERVERGROUPS)
+		and groupsintersect(t.ASYNCLISTENERS, a.ID)
+		and groupsintersect(t.schemaid, s.schemaid)
+        order by t.tablename, m.id
+      ]]></value>
+    </property>
+  </bean>
+  
+  <bean id="schemaTables" class="pivotal.au.se.gemfirexdweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Tables in a given Schema</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Schema Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+			select tablename, servergroups, datapolicy, loader, writer 
+			from sys.systables 
+			where tableschemaname = ?
+			and   tabletype = 'T'  
+      ]]></value>
+    </property>
+  </bean>
+
+  <bean id="schemaTablesWithPersistence" class="pivotal.au.se.gemfirexdweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Tables in a given Schema with persistence turned on</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Schema Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+			select tablename, servergroups, datapolicy, loader, writer 
+			from sys.systables 
+			where tableschemaname = ?
+			and   tabletype = 'T' 
+			and   datapolicy like '%PERSISTENT%' 
+      ]]></value>
+    </property>
+  </bean>
+
+  <bean id="schemaTablesWithPartition" class="pivotal.au.se.gemfirexdweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Tables in a given Schema with PARTITION data policy</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Schema Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+			select tablename, servergroups, datapolicy, loader, writer 
+			from sys.systables 
+			where tableschemaname = ?
+			and   tabletype = 'T' 
+			and   datapolicy like '%PARTITION%' 
+      ]]></value>
+    </property>
+  </bean>
+
+  <bean id="schemaTablesPartOfServerGroup" class="pivotal.au.se.gemfirexdweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>View Tables for a given Schema and Server Group</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Schema Name" />
+      <entry key="2" value="Server Group" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+			select tablename, servergroups, datapolicy, loader, writer 
+			from sys.systables 
+			where tableschemaname = ?
+			and   tabletype = 'T' 
+			and   servergroups = ? 
+      ]]></value>
+    </property>
+  </bean>
+ 
+   <bean id="schemaTablesWithPartitionAttrs" class="pivotal.au.se.gemfirexdweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>View PARTITION attributes for all PARTITION tables in a given schema</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Schema Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+			select tablename, datapolicy, partitionattrs 
+			from sys.systables 
+			where tableschemaname = ?
+			and   tabletype = 'T' 
+			and   datapolicy like '%PARTITION%' 
+      ]]></value>
+    </property>
+  </bean>
+
+  <bean id="schemaTablesWithEvictionExpirationAtrs" class="pivotal.au.se.gemfirexdweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Tables in a given Schema with their eviction/expiration attributes</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Schema Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+			select tablename, expirationattrs, evictionattrs 
+			from sys.systables 
+			where tableschemaname = ?
+			and   tabletype = 'T' 
+      ]]></value>
+    </property>
+  </bean>
+
+  <bean id="schemaTablesWithPersistenceAtrs" class="pivotal.au.se.gemfirexdweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Tables in a given Schema with their persistence attributes</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Schema Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+			select TABLENAME, datapolicy, DISKATTRS 
+			from sys.systables 
+			where tableschemaname = ?
+			and   tabletype = 'T'
+			and diskattrs is not null
+      ]]></value>
+    </property>
+  </bean>
+
+  <bean id="asyncListenersForTable" class="pivotal.au.se.gemfirexdweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Async Event Listeners for a Table</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Table Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		select m.ID DSID, m.status, s.schemaname, t.tablename, t.datapolicy, t.GATEWAYENABLED, t.servergroups 
+		from SYS.SYSTABLES t, SYS.MEMBERS m, SYS.ASYNCEVENTLISTENERS a, sys.sysschemas s
+		where t.tablename = ?
+		and groupsintersect(a.SERVER_GROUPS, m.SERVERGROUPS)
+		and groupsintersect(t.ASYNCLISTENERS, a.ID)
+		and groupsintersect(t.schemaid, s.schemaid)
+      ]]></value>
+    </property>
+  </bean>
+ 
+  <bean id="memoryForTable" class="pivotal.au.se.gemfirexdweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Memory Usage or Table</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Table Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		SELECT * FROM sys.memoryAnalytics
+		where table_name = ?
+      ]]></value>
+    </property>
+  </bean>
+
+  <bean id="membersForTable" class="pivotal.au.se.gemfirexdweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Members hosting table data</value>
+    </property>
+    <property name="paramMap">
+     <map>
+       <entry key="1" value="Schema Name" />
+       <entry key="2" value="Table Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+        select id from (select id, servergroups from sys.members where hostdata = 1) as a, sys.systables b 
+        where b.tableschemaname = ? and b.tablename = ? 
+        and (LENGTH(b.SERVERGROUPS) = 0 or GROUPSINTERSECT(a.SERVERGROUPS, b.SERVERGROUPS))
+      ]]></value>
+    </property>
+  </bean>
+  
+  <bean id="schemaIndexes" class="pivotal.au.se.gemfirexdweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Indexes in a given Schema</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Schema Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		select distinct indexname, "UNIQUE", tablename, indextype, COLUMNS_AND_ORDER, schemaname
+	    from   sys.indexes 
+		where  schemaname = ?
+      ]]></value>
+    </property>
+  </bean>
+
+  <bean id="schemaTableIndexes" class="pivotal.au.se.gemfirexdweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Indexes in a given Schema for a given Table</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Schema Name" />
+      <entry key="2" value="Table Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		select distinct indexname, "UNIQUE", tablename, indextype, COLUMNS_AND_ORDER, schemaname
+	    from   sys.indexes 
+		where  schemaname = ?
+		and    tablename = ?
+      ]]></value>
+    </property>
+  </bean>
+
+  <bean id="schemaViews" class="pivotal.au.se.gemfirexdweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Views in a given Schema</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Schema Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		select t.tableschemaname, t.tablename "Index Name", v.viewdefinition, t.datapolicy 
+		from SYS.SYSVIEWS v, SYS.SYSSCHEMAS s, sys.systables t 
+		where s.schemaid = v.compilationschemaid 
+		and   t.tableid = v.tableid 
+		and   s.schemaname = ?
+		order by 1, 2
+      ]]></value>
+    </property>
+  </bean>
+
+  <bean id="viewHDFSStores" class="pivotal.au.se.gemfirexdweb.reports.GenericQuery">
+    <property name="queryDescription">
+        <value>All HDFS Stores</value>
+    </property>
+    <property name="query">
+        <value><![CDATA[
+            select name, namenode, homedir
+            from sys.SYSHDFSSTORES
+            order by 1
+        ]]></value>
+    </property>
+  </bean>
+
+  <bean id="viewHDFSTablesBySchema" class="pivotal.au.se.gemfirexdweb.reports.ParameterQuery">
+        <property name="queryDescription">
+            <value>View HDFS Tables by Schema</value>
+        </property>
+        <property name="paramMap">
+            <map>
+                <entry key="1" value="Schema Name" />
+            </map>
+        </property>
+        <property name="query">
+            <value><![CDATA[
+                select tableschemaname, tablename, servergroups, datapolicy, loader, writer
+                FROM SYS.SYSTABLES t, sys.sysschemas s
+                WHERE s.schemaid = t.schemaid
+                and   t.TABLESCHEMANAME = ?
+                and   t.tabletype != 'V'
+                and   t.datapolicy like 'HDFS%'
+                order by 1, 2
+            ]]></value>
+        </property>
+  </bean>
+
+  <bean id="viewGatewaySenders" class="pivotal.au.se.gemfirexdweb.reports.GenericQuery">
+        <property name="queryDescription">
+            <value>All Running Gateway Senders</value>
+        </property>
+        <property name="query">
+            <value><![CDATA[
+                select m.id, m.netservers, g.sender_id, g.server_groups from sys.members m, sys.gatewaysenders g
+                where groupsintersect(m.servergroups, g.server_groups)
+        ]]></value>
+        </property>
+  </bean>
+
+   <!-- Query List of About DB Queries-->
+  <bean id="queryListAbout" class="pivotal.au.se.gemfirexdweb.reports.QueryList">
+    <property name="description">
+      <value>About SQLFire Distributed System</value>
+    </property>   
+    <property name="queryList">
+      <map>
+       <entry key="showMembers">
+        <value>View All Distributed System Members</value>
+       </entry>
+       <entry key="viewSchemas">
+        <value>View All System Schemas</value>
+       </entry>
+       <entry key="viewMembersWithAsync">
+        <value>members running AsyncEventListeners/DBSynchronizers with status</value>
+       </entry>
+       <entry key="viewMemoryAnalytics">
+        <value>View Memory Usage of All Tables/Indexes</value>
+       </entry>
+      </map>
+    </property>
+  </bean>
+   
+  <!-- Query List of Table DB Queries-->
+  <bean id="queryListTable" class="pivotal.au.se.gemfirexdweb.reports.QueryList">
+    <property name="description">
+      <value>Tables</value>
+    </property>   
+    <property name="queryList">
+      <map>
+       <entry key="schemaTables">
+        <value>View Tables for a given Schema</value>
+       </entry>
+       <entry key="schemaTablesWithPersistence">
+        <value>View Tables for a given Schema with persistence turned on</value>
+       </entry>
+       <entry key="schemaTablesWithPartition">
+        <value>View Tables for a given Schema with PARTITION data policy</value>
+       </entry>
+       <entry key="schemaTablesPartOfServerGroup">
+        <value>View Tables for a given Schema and Server Group</value>
+       </entry>
+       <entry key="schemaTablesWithPartitionAttrs">
+        <value>View PARTITION attributes for all PARTITION tables in a given schema</value>
+       </entry>
+       <entry key="schemaTablesWithEvictionExpirationAtrs">
+        <value>Tables in a given Schema with their eviction/expiration attributes</value>
+       </entry>
+       <entry key="schemaTablesWithPersistenceAtrs">
+        <value>Tables in a given Schema with their persistence attributes</value>
+       </entry>      
+       <entry key="asyncListenersForTable">
+        <value>Async Event Listeners for a Table</value>
+       </entry>   
+       <entry key="memoryForTable">
+        <value>Memory Usage or Table</value>
+       </entry>   
+       <entry key="membersForTable">
+        <value>Members hosting table data</value>
+       </entry>   
+      </map>
+    </property>
+  </bean>
+
+  <!-- Query List of Index DB Queries-->
+  <bean id="queryListIndex" class="pivotal.au.se.gemfirexdweb.reports.QueryList">
+    <property name="description">
+      <value>Indexes</value>
+    </property>   
+    <property name="queryList">
+      <map>
+       <entry key="schemaIndexes">
+        <value>View Indexes for a given Schema</value>
+       </entry>
+       <entry key="schemaTableIndexes">
+        <value>Indexes in a given Schema for a given Table</value>
+       </entry>
+      </map>
+    </property>
+  </bean>
+  
+  <!-- Query List of Table DB Queries-->
+  <bean id="queryListView" class="pivotal.au.se.gemfirexdweb.reports.QueryList">
+    <property name="description">
+      <value>Views</value>
+    </property>   
+    <property name="queryList">
+      <map>
+       <entry key="schemaViews">
+        <value>Views for a given Schema</value>
+       </entry>
+      </map>
+    </property>
+  </bean>
+
+  <!-- Query List of Table DB Queries-->
+  <bean id="queryListHdfs" class="pivotal.au.se.gemfirexdweb.reports.QueryList">
+    <property name="description">
+        <value>HDFS</value>
+    </property>
+    <property name="queryList">
+        <map>
+            <entry key="viewHDFSStores">
+                <value>View all HDFS Stores</value>
+            </entry>
+            <entry key="viewHDFSTablesBySchema">
+                <value>View all HDFS Tables within a Schema</value>
+            </entry>
+        </map>
+    </property>
+  </bean>
+
+  <!-- Query List of Table DB Queries-->
+  <bean id="queryGatewaySenders" class="pivotal.au.se.gemfirexdweb.reports.QueryList">
+        <property name="description">
+            <value>Gateway Senders</value>
+        </property>
+        <property name="queryList">
+            <map>
+                <entry key="viewGatewaySenders">
+                    <value>All Running Gateway Senders</value>
+                </entry>
+            </map>
+        </property>
+  </bean>
+
+</beans>

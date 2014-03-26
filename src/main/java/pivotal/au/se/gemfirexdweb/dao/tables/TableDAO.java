@@ -1,0 +1,57 @@
+/*
+Copyright (C) MARCH-2014 Pivotal Software, Inc.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+package pivotal.au.se.gemfirexdweb.dao.tables;
+
+import java.util.List;
+
+import pivotal.au.se.gemfirexdweb.main.Result;
+import pivotal.au.se.gemfirexdweb.main.SqlFireException;
+
+public interface TableDAO 
+{
+	public List<Table> retrieveTableList(String schema, String search, String userKey, String viewType) throws SqlFireException;
+	
+	public Result simpletableCommand (String schemaName, String tableName, String type, String userKey) throws SqlFireException;
+
+    public Result addAsyncEventListener (String schemaName, String tableName, String asyncIdName, String curValue, String userKey) throws SqlFireException;
+
+    public Result addGatewaySender (String schemaName, String tableName, String gatewaySender, String curValue, String userKey) throws SqlFireException;
+
+    public Result performPrivilege (String schemaName, String tableName, String privType, String privOption, String privTo, String userKey) throws SqlFireException;
+
+    public String generateLoadScript (String schema, String tableName) throws SqlFireException;
+	
+	public javax.servlet.jsp.jstl.sql.Result getDataLocations (String schema, String tableName, String userKey) throws SqlFireException;
+	
+	public String viewPartitionAttrs (String schema, String tableName, String userKey) throws SqlFireException;
+	
+	public javax.servlet.jsp.jstl.sql.Result getExpirationEvictionAttrs (String schema, String tableName, String userKey) throws SqlFireException;
+
+	public javax.servlet.jsp.jstl.sql.Result getAllTableInfo (String schema, String tableName, String userKey) throws SqlFireException;
+	
+	public javax.servlet.jsp.jstl.sql.Result getTableStructure (String schema, String tableName, String userKey) throws SqlFireException;
+	
+	public javax.servlet.jsp.jstl.sql.Result getMemoryUsage (String schema, String tableName, String userKey) throws SqlFireException;
+
+    public javax.servlet.jsp.jstl.sql.Result getMemoryUsageSum (String schema, String tableName, String userKey) throws SqlFireException;
+
+    public javax.servlet.jsp.jstl.sql.Result getTableAsyncListeners (String tableName, String userKey) throws SqlFireException;
+
+    public javax.servlet.jsp.jstl.sql.Result getTableTriggers (String schema, String tableName, String userKey) throws SqlFireException;
+
+    public javax.servlet.jsp.jstl.sql.Result getTablePrivs (String schema, String tableName, String userKey) throws SqlFireException;
+}
