@@ -50,7 +50,6 @@ background-color: #C4D4E2;
     </style>
 
     <style type="text/css">
-        H1,H2{text-align:center;}
         ul{list-style-type: none;}
         span.expand, span.collapse
         {
@@ -303,7 +302,7 @@ Explain?
 <form:select path="explainPlan" style="margin: 0 2em 0 2em;">
    <form:option value="N">No</form:option>
    <form:option value="Y">Yes</form:option>
-   <form:option value="T">Text</form:option>
+   <form:option value="T">Plain Text</form:option>
 </form:select>
 <input type="image" src="../themes/original/img/Execute.png" name="SQL" />
 <div class="clearfloat"></div>

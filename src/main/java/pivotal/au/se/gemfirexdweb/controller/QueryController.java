@@ -207,23 +207,20 @@ public class QueryController
 			    			{
                                 logger.debug("Need to run explain plan.");
 
-                                String explainString = "explain ";
+                                String explainString = "";
+
                                 if (explain.equals("Y"))
                                 {
-                                    explainString += " as xml ";
+                                    explainString = "explain as xml '%s'";
                                 }
                                 else if (explain.equals("T"))
                                 {
-                                    ; // nothing , get the default
+                                    explainString = "explain %s";
                                 }
-                                else if (explain.equals("F"))
-                                {
-                                    explainString += " as xml ";
-                                }
-                                explainString += " %s";
+
 
                                 String xPlan = QueryUtil.runExplainPlan(conn, String.format(explainString, query));
-                                logger.debug("received : " + xPlan);
+                                logger.debug("received xPath : " + xPlan);
 
                                 if (explain.equals("Y"))
                                 {
