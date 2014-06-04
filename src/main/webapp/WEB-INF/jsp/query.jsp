@@ -20,6 +20,7 @@ limitations under the License.
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,85 +29,174 @@ input:focus, textarea:focus {
 background-color: #C4D4E2;
 } 
 </style>
+    <style>
+
+        .node circle {
+            fill: #fff;
+            stroke: steelblue;
+            stroke-width: 1.5px;
+        }
+
+        .node {
+            font: 10px sans-serif;
+        }
+
+        .link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 1.5px;
+        }
+
+    </style>
+
+    <style type="text/css">
+        H1,H2{text-align:center;}
+        ul{list-style-type: none;}
+        span.expand, span.collapse
+        {
+            color:#3B5998;
+            font-size:20px;
+            position:relative;
+            left:10px;
+        }
+        span.plus, span.minus
+        {
+            color:#000000;
+            font-size:20px;
+        }
+        span.expand, span.collapse { cursor: pointer; }
+        span.expand span.minus { display: none; }
+        span.collapse span.plus { display: none }
+    </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><fmt:message key="sqlfireweb.appname" /> - Query Window</title>
 <link rel="stylesheet" type="text/css" href="../css/isqlfire.css" />
 <link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
+
   <script language="JavaScript" type="text/javascript">
-  <!--
-  function showSelected()
-  {
-     var selObj = document.getElementById('queryTypeId');
-     var queryWindowObj = document.getElementById('sqlquery');
-     var selIndex = selObj.selectedIndex;
-     var queryType = selObj.options[selIndex].value;
-     var query = '';
-     
-     if (queryType == 'Select')
-     {
-       query = 'select ';
-     }
-     else if ( queryType == 'Insert' )
-     {
-       query = 'insert into ';
-     }
-     else if ( queryType == 'Delete' )
-     {
-       query = 'delete from ';
-     }  
-     else if ( queryType == 'DDL' )
-     {
-       query = 'alter ';
-     }
-     else if ( queryType == 'Update' )
-     {
-       query = 'update ';
-     }
-     else if (queryType == 'TODAYSDATE')
-     {
-       query = 'select current_date as "System Date" from sysibm.sysdummy1';
-     }
-     else if (queryType == 'VIEWMEMBERS')
-     {
-       query = 'select substr(id, 1, 48) as "Id", substr(netservers, 1, 30) as "NetServers", pid from sys.members';
-     }   
-     else if (queryType == 'VIEWSCHEMAS')
-     {     
-       query = 'select schemaname from sys.sysschemas';
-     }
-     else if (queryType == 'VIEWALIASES')
-     {     
-       query = 'select aliasschemaname, alias, javaclassname from sys.sysaliases order by 1';
-     }
-     else if (queryType == 'VIEWSTATEMENTS')
-     {
-         query = 'select stmtname, text from sys.SYSSTATEMENTS';
-     }
-     else if (queryType == 'VIEWSYNONYMS')
-     {
-         query = 'select alias, aliasschemaname, CAST(aliasinfo AS VARCHAR(100)) as "TableOrView" from sys.sysaliases where aliastype = \'S\'';
-     }
+      window.onload = function()
+      {
+          var ul = document.getElementById('main-ul');
+          var childUls = ul.getElementsByTagName('table');
+          for (var i = 0, l = childUls.length; i < l; i)
+          {
+              childUls[i].className = 'hide';
+          }
+      }
 
-     queryWindowObj.value = query;
-  
-  }
-  
-  function checkFile() {
-      var fileElement = document.getElementById("sqlfilename");
-      var fileExtension = "";
-      if (fileElement.value.lastIndexOf(".") > 0) {
-          fileExtension = fileElement.value.substring(fileElement.value.lastIndexOf(".") + 1, fileElement.value.length);
+      function toggle(el)
+      {
+          do
+          {
+              var ul = getNextElementSibling(el);
+          }
+          while (ul && ul.tagName.toLowerCase() !== 'table');
+          ul.className = ul.className === '' ? 'hide' : '';
+          el.className = el.className === 'collapse' ? 'expand' : 'collapse';
       }
-      if (fileExtension == "sql" || fileExtension == "SQL") {
-          return true;
-      }
-      else {
-          alert("You must select a SQL file for upload with .sql extension");
-          return false;
-      }
-  }
 
-  //-->
+      function getNextElementSibling(node) {
+          while (node && (node = node.nextSibling)) {
+              if (node.nodeType == 1) {
+                  return node;
+              }
+          }
+      }
+
+      function hide(el)
+      {
+          do
+          {
+              var ul = getNextElementSibling(el);
+          }
+          while (ul && ul.tagName.toLowerCase() !== 'table');
+          ul.className = ul.className === '' ? 'hide' : '';
+          el.className = el.className === 'expand' ? 'collapse' : '';
+      }
+
+      function Collapser(item)
+      {
+          // Make sure the tags are setup correctly, if not just return
+          if (!item.parentNode.getElementsByTagName("ul")[0]) return;
+          var x = item.parentNode.getElementsByTagName("ul")[0];
+          // if already visible, make disappear, otherwise reappear
+          x.style.display = (x.style.display == "") ? 'none' : "";
+          //item.parentNode.style.listStyle = (item.parentNode.style.listStyle == "") ? "disc" : "";
+          item.parentNode.style.listStyleImage = (item.parentNode.style.listStyleImage == "")
+                  ? "url('../themes/original/img/plus.gif')" : "";
+      }
+
+      function showSelected()
+      {
+         var selObj = document.getElementById('queryTypeId');
+         var queryWindowObj = document.getElementById('sqlquery');
+         var selIndex = selObj.selectedIndex;
+         var queryType = selObj.options[selIndex].value;
+         var query = '';
+
+         if (queryType == 'Select')
+         {
+           query = 'select ';
+         }
+         else if ( queryType == 'Insert' )
+         {
+           query = 'insert into ';
+         }
+         else if ( queryType == 'Delete' )
+         {
+           query = 'delete from ';
+         }
+         else if ( queryType == 'DDL' )
+         {
+           query = 'alter ';
+         }
+         else if ( queryType == 'Update' )
+         {
+           query = 'update ';
+         }
+         else if (queryType == 'TODAYSDATE')
+         {
+           query = 'select current_date as "System Date" from sysibm.sysdummy1';
+         }
+         else if (queryType == 'VIEWMEMBERS')
+         {
+           query = 'select substr(id, 1, 48) as "Id", substr(netservers, 1, 30) as "NetServers", pid from sys.members';
+         }
+         else if (queryType == 'VIEWSCHEMAS')
+         {
+           query = 'select schemaname from sys.sysschemas';
+         }
+         else if (queryType == 'VIEWALIASES')
+         {
+           query = 'select aliasschemaname, alias, javaclassname from sys.sysaliases order by 1';
+         }
+         else if (queryType == 'VIEWSTATEMENTS')
+         {
+             query = 'select stmtname, text from sys.SYSSTATEMENTS';
+         }
+         else if (queryType == 'VIEWSYNONYMS')
+         {
+             query = 'select alias, aliasschemaname, CAST(aliasinfo AS VARCHAR(100)) as "TableOrView" from sys.sysaliases where aliastype = \'S\'';
+         }
+
+         queryWindowObj.value = query;
+
+      }
+
+      function checkFile() {
+          var fileElement = document.getElementById("sqlfilename");
+          var fileExtension = "";
+          if (fileElement.value.lastIndexOf(".") > 0) {
+              fileExtension = fileElement.value.substring(fileElement.value.lastIndexOf(".") + 1, fileElement.value.length);
+          }
+          if (fileExtension == "sql" || fileExtension == "SQL") {
+              return true;
+          }
+          else {
+              alert("You must select a SQL file for upload with .sql extension");
+              return false;
+          }
+      }
   </script> 
 </head>
 <body>
@@ -133,18 +223,6 @@ background-color: #C4D4E2;
 	<div class="success">
   		Successfully loaded ${sqlfile}
   	</div>
-</c:if>
-
-<c:if test="${!empty explainresult}">
- <h3>Explain Result</h3>
- <table id="table_results" class="data">
-   <tbody>
-     <tr class="odd">
-      <td><pre>${explainresult}</pre></td>
-     </tr>
-   </tbody>
- </table>
- <br />
 </c:if>
 
 <br />
@@ -224,7 +302,8 @@ Elapsed Time?
 Explain?
 <form:select path="explainPlan" style="margin: 0 2em 0 2em;">
    <form:option value="N">No</form:option>
-   <form:option value="Y">Yes</form:option>        
+   <form:option value="Y">Yes</form:option>
+   <form:option value="T">Text</form:option>
 </form:select>
 <input type="image" src="../themes/original/img/Execute.png" name="SQL" />
 <div class="clearfloat"></div>
@@ -232,6 +311,26 @@ Explain?
 </form:form>
 
 <br />
+
+<c:if test="${!empty explainresult}">
+    <c:import url="../advancedViewXSL2.xsl" var="xslt"/>
+    <x:transform xml="${explainresult}" xslt="${xslt}"/>
+    <td></td>
+</c:if>
+
+<c:if test="${!empty explaintxtresult}">
+    <h3>Explain Result</h3>
+    <table id="table_results" class="data">
+        <tbody>
+        <tr class="odd">
+            <td><pre>${explaintxtresult}</pre></td>
+        </tr>
+        </tbody>
+    </table>
+    <br />
+</c:if>
+
+
 <c:if test="${!empty result}">
 <fieldset>
  <legend>Result</legend>

@@ -127,7 +127,7 @@ Table Name:
 <p />
 <h3>Table Columns</h3>
 
-<c:if test="${numColumns = 0}">
+<c:if test="${numColumns == 0}">
     <i> No table columns exists , at least one is required </i>
 </c:if>
 

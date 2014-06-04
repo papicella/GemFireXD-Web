@@ -202,10 +202,37 @@ public class QueryController
 			    	{
 			    		try
 			    		{
-			    			if (queryAttribute.getExplainPlan().equals("Y"))
+                            final String explain = queryAttribute.getExplainPlan();
+                            if (!explain.equals("N"))
 			    			{
-			    				logger.debug("Need to run explain plan");
-			    				model.addAttribute("explainresult", QueryUtil.runExplainPlan(conn, query));
+                                logger.debug("Need to run explain plan.");
+
+                                String explainString = "explain ";
+                                if (explain.equals("Y"))
+                                {
+                                    explainString += " as xml ";
+                                }
+                                else if (explain.equals("T"))
+                                {
+                                    ; // nothing , get the default
+                                }
+                                else if (explain.equals("F"))
+                                {
+                                    explainString += " as xml ";
+                                }
+                                explainString += " %s";
+
+                                String xPlan = QueryUtil.runExplainPlan(conn, String.format(explainString, query));
+                                logger.debug("received : " + xPlan);
+
+                                if (explain.equals("Y"))
+                                {
+                                    model.addAttribute("explainresult", xPlan);
+                                }
+                                else if (explain.equals("T"))
+                                {
+                                    model.addAttribute("explaintxtresult", xPlan);
+                                }
 			    			}
 			    			else
 			    			{

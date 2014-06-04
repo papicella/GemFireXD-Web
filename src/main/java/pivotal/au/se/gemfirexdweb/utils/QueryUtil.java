@@ -36,18 +36,20 @@ public class QueryUtil
 	  static public String runExplainPlan (Connection conn, String query) throws SQLException
 	  {
 		Statement stmt = null;
-		String sql = "explain %s";
 		ResultSet rset = null;
-		String result = null;
+		String result = "";
+
 		try 
 		{
 			stmt = conn.createStatement();
-			rset = stmt.executeQuery(String.format(sql, query));
-			// should only return one row
-			rset.next();
-			
-			result = rset.getString(1);
-		
+			rset = stmt.executeQuery(query);
+
+            // returns multiple row (one per member)
+            while(rset.next())
+            {
+            	result += rset.getString(1);
+            }
+
 		} 
 		finally
 		{
