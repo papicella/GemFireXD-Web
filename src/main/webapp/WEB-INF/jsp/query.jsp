@@ -74,12 +74,11 @@ background-color: #C4D4E2;
 <link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
 
   <script language="JavaScript" type="text/javascript">
-      <![CDATA[
       window.onload = function()
       {
           var ul = document.getElementById('main-ul');
           var childUls = ul.getElementsByTagName('table');
-          for (var i = 0, l = childUls.length; i < l; i)
+          for (var i = 0, l = childUls.length; i &lt; l; i)
           {
               childUls[i].className = 'hide';
           }
@@ -91,13 +90,13 @@ background-color: #C4D4E2;
           {
               var ul = getNextElementSibling(el);
           }
-          while (ul && ul.tagName.toLowerCase() !== 'table');
+          while (ul &amp;&amp; ul.tagName.toLowerCase() !== 'table');
           ul.className = ul.className === '' ? 'hide' : '';
           el.className = el.className === 'collapse' ? 'expand' : 'collapse';
       }
 
       function getNextElementSibling(node) {
-          while (node && (node = node.nextSibling)) {
+          while (node &amp;&amp; (node = node.nextSibling)) {
               if (node.nodeType == 1) {
                   return node;
               }
@@ -110,7 +109,7 @@ background-color: #C4D4E2;
           {
               var ul = getNextElementSibling(el);
           }
-          while (ul && ul.tagName.toLowerCase() !== 'table');
+          while (ul &amp;&amp; ul.tagName.toLowerCase() !== 'table');
           ul.className = ul.className === '' ? 'hide' : '';
           el.className = el.className === 'expand' ? 'collapse' : '';
       }
@@ -124,7 +123,7 @@ background-color: #C4D4E2;
           x.style.display = (x.style.display == "") ? 'none' : "";
           //item.parentNode.style.listStyle = (item.parentNode.style.listStyle == "") ? "disc" : "";
           item.parentNode.style.listStyleImage = (item.parentNode.style.listStyleImage == "")
-                  ? "url('../themes/original/img/plus.gif')" : "";
+                  ? "url('./themes/original/img/plus.gif')" : "";
       }
 
       function showSelected()
@@ -198,7 +197,7 @@ background-color: #C4D4E2;
               return false;
           }
       }
-      ]]>
+
   </script> 
 </head>
 <body>
