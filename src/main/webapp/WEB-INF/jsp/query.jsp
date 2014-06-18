@@ -51,6 +51,7 @@ background-color: #C4D4E2;
 
     <style type="text/css">
         ul{list-style-type: none;}
+        table.hide { display: none; }
         span.expand, span.collapse
         {
             color:#3B5998;
@@ -73,6 +74,7 @@ background-color: #C4D4E2;
 <link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
 
   <script language="JavaScript" type="text/javascript">
+      <![CDATA[
       window.onload = function()
       {
           var ul = document.getElementById('main-ul');
@@ -196,6 +198,7 @@ background-color: #C4D4E2;
               return false;
           }
       }
+      ]]>
   </script> 
 </head>
 <body>
@@ -283,7 +286,7 @@ Save?
     <form:option value="N">No</form:option>
     <form:option value="Y">Yes</form:option>
 </form:select>
-Show Member?
+Member?
 <form:select path="showMember" style="margin: 0 2em 0 2em;">
    <form:option value="N">No</form:option> 
    <form:option value="Y">Yes</form:option>         
@@ -293,7 +296,7 @@ Count?
    <form:option value="Y">Yes</form:option> 
    <form:option value="N">No</form:option>         
 </form:select>
-Elapsed Time?
+Time?
 <form:select path="elapsedTime" style="margin: 0 2em 0 2em;">
    <form:option value="N">No</form:option>
    <form:option value="Y">Yes</form:option>          
@@ -302,7 +305,7 @@ Explain?
 <form:select path="explainPlan" style="margin: 0 2em 0 2em;">
    <form:option value="N">No</form:option>
    <form:option value="Y">Yes</form:option>
-   <form:option value="T">Plain Text</form:option>
+   <form:option value="T">Plain</form:option>
 </form:select>
 <input type="image" src="../themes/original/img/Execute.png" name="SQL" />
 <div class="clearfloat"></div>

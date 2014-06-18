@@ -211,7 +211,7 @@ public class QueryController
 
                                 if (explain.equals("Y"))
                                 {
-                                    explainString = "explain as xml '%s'";
+                                    explainString = "explain as xml %s";
                                 }
                                 else if (explain.equals("T"))
                                 {

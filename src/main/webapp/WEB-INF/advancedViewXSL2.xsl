@@ -91,19 +91,8 @@
                 </xsl:for-each>
             </xsl:for-each>
         </ul>
-        <H1> <font align="center"> END OF PLAN </font> </H1>
-        <H1> <font color="transparent"> ---------------------- </font> </H1>
-        <H1> <font color="transparent"> ---------------------- </font> </H1>
-        <H1> <font color="transparent"> ---------------------- </font> </H1>
-        <H1> <font color="transparent"> ---------------------- </font> </H1>
-        <H1> <font color="transparent"> ---------------------- </font> </H1>
-        <H1> <font color="transparent"> ---------------------- </font> </H1>
-        <H1> <font color="transparent"> ---------------------- </font> </H1>
-        <H1> <font color="transparent"> ---------------------- </font> </H1>
-        <H1> <font color="transparent"> ---------------------- </font> </H1>
-        <H1> <font color="transparent"> ---------------------- </font> </H1>
-        <H1> <font color="transparent"> ---------------------- </font> </H1>
-        <H1> <font color="transparent"> ---------------------- </font> </H1>
+        <H2> <font align="center"> END OF PLAN </font> </H2>
+
     </xsl:template>
 
     <xsl:template match="details">
