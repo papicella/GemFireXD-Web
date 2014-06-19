@@ -398,6 +398,11 @@ Explain?
  </c:forEach>
 </c:if>
 
+<c:url var="h" value="/GemFireXD-Web/query">
+    <c:param name="action" value="export" />
+    <c:param name="query" value="${querysql}" />
+</c:url>
+
 <c:if test="${!empty queryResults}">
   <c:choose>
     <c:when test="${!empty queryResultCount}">
@@ -417,6 +422,13 @@ Explain?
      <tbody>
        <tr class="odd">
          <td><b>GemFireXD*Web&gt;</b> ${querysql}</td>
+       </tr>
+       <tr>
+           <td>
+               <a href="${h}" title="Export Data">
+                   <img class="icon" src="../themes/original/img/Save-To-File.png" alt="Export Data" border="0" />
+               </a>
+           </td>
        </tr>
      </tbody>
    </table>
@@ -458,12 +470,23 @@ Explain?
     <c:when test="${fn:endsWith(item.key,'SELECT')}">
        <fieldset>
        <legend>Query Result</legend>
+       <c:url var="x" value="/GemFireXD-Web/query">
+           <c:param name="action" value="export" />
+           <c:param name="query" value="${item.value[0]}" />
+       </c:url>
 	   <table id="table_results" class="data">
 	     <tbody>
 	       <tr class="odd">
 	         <c:set var="sql"></c:set>
 	         <td><b>GemFireXD*Web&gt;</b> ${item.value[0]} </td>
 	       </tr>
+           <tr>
+               <td>
+                   <a href="${x}" title="Export Data">
+                       <img class="icon" src="../themes/original/img/Save-To-File.png" alt="Export Data" border="0" />
+                   </a>
+               </td>
+           </tr>
 	     </tbody>
 	   </table>
        <c:set var="queryResults" value="${item.value[1]}" />

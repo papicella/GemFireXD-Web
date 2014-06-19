@@ -22,7 +22,7 @@ limitations under the License.
   <img class="icon" src="../themes/original/img/b_props.png" width="16" height="16" alt="GemFireXD*Web Preferences" />
   Preferences
 </a>&nbsp; | &nbsp;
-<a href="http://gemfirexd-05.run.pivotal.io/index.jsp" title="GemFireXD Documentation" target="_top">
+<a href="http://gemfirexd.docs.gopivotal.com/index.html" title="GemFireXD Documentation" target="_top">
   <img class="icon" src="../themes/original/img/b_docs.png" width="16" height="16" alt="GemFireXD documentation" />
   GemFireXD Documentation
 </a>&nbsp; | &nbsp;

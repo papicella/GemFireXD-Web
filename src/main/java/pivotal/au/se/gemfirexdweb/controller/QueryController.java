@@ -57,6 +57,7 @@ public class QueryController
 {
 	protected static Logger logger = Logger.getLogger("controller");
     private static final String FILENAME = "worksheet.sql";
+    private static final String FILENAME_EXPORT = "query-output.csv";
     private static final String SAVE_CONTENT_TYPE = "application/x-download";
 
 	// add comments here
@@ -109,16 +110,32 @@ public class QueryController
     			logger.debug("commit action requested");
     			result = QueryUtil.runCommitOrRollback(conn, true, "N");
     			addCommandToHistory(session, userPrefs, "commit");
+
+                model.addAttribute("result", result);
     		}
     		else if (action.trim().equals("rollback"))
     		{
     			logger.debug("rollback action requested");
     			result = QueryUtil.runCommitOrRollback(conn, false, "N");
     			addCommandToHistory(session, userPrefs, "rollback");
+
+                model.addAttribute("result", result);
     		}
-    		
-    		model.addAttribute("result", result);
-    		
+            else if (action.trim().equals("export"))
+            {
+                logger.debug("export data to CSV action requested");
+                String query = request.getParameter("query");
+                String exportDataCSV = QueryUtil.runQueryForCSV(conn, query);
+
+                response.setContentType(SAVE_CONTENT_TYPE);
+                response.setHeader("Content-Disposition", "attachment; filename=" + FILENAME_EXPORT);
+
+                ServletOutputStream out = response.getOutputStream();
+                out.println(exportDataCSV);
+                out.close();
+                return null;
+            }
+
     	}
     	
     	// Create new QueryWindow and add to model

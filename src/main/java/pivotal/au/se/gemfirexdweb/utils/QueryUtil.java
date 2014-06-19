@@ -16,6 +16,8 @@ limitations under the License.
 */
 package pivotal.au.se.gemfirexdweb.utils;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +31,7 @@ import java.text.DecimalFormat;
 import javax.servlet.jsp.jstl.sql.Result;
 import javax.servlet.jsp.jstl.sql.ResultSupport;
 
+import au.com.bytecode.opencsv.CSVWriter;
 import pivotal.au.se.gemfirexdweb.beans.CommandResult;
 
 public class QueryUtil 
@@ -84,7 +87,32 @@ public class QueryUtil
 		return result;
 		  
 	  }
-	  
+
+      static public String runQueryForCSV (Connection conn, String query) throws SQLException, IOException
+      {
+          Statement stmt  = null;
+          ResultSet rset  = null;
+          StringWriter sw = new StringWriter();
+
+          try
+          {
+              stmt = conn.createStatement();
+              rset = stmt.executeQuery(query);
+
+              CSVWriter csvWriter = new CSVWriter(sw, ',', '"', '\"');
+              csvWriter.writeAll(rset, true);
+              csvWriter.flush();
+
+          }
+          finally
+          {
+              JDBCUtil.close(stmt);
+              JDBCUtil.close(rset);
+          }
+
+          return sw.toString();
+      }
+
 	  static public Result runQuery (Connection conn, String query, int maxrows) throws SQLException
 	  {
 	    Statement stmt  = null;
