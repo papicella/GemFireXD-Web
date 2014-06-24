@@ -96,7 +96,7 @@ Found ${records} async event listener(s).
 
 <c:if test="${!empty arrayresultddl}">
     <fieldset>
-        <legend>Async Eevent Listener DDL</legend>
+        <legend>Async Event Listener DDL</legend>
         <table id="table_results_ddl" class="data">
             <c:forEach var="result" items="${arrayresultddl}">
                 <tr>

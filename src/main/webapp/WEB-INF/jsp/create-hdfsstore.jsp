@@ -41,7 +41,7 @@ limitations under the License.
         {
             if (document.getElementById("storename").value == "")
             {
-                alert("Gateway Sender Name Cannot Be Empty");
+                alert("HDFS Store Name Cannot Be Empty");
                 return false;
             }
             else

@@ -187,7 +187,7 @@ public class HdfsStoreDAOImpl  implements HdfsStoreDAO
                 ddl.append("HOMEDIR '" + rset.getString("HOMEDIR") + "' \n");
                 ddl.append("MAXQUEUEMEMORY " + rset.getString("MAXQUEUEMEMORY") + " \n");
                 ddl.append("BATCHSIZE " + rset.getString("BATCHSIZE") + " \n");
-                ddl.append("BATCHTIMEINTERVAL " + rset.getString("BATCHTIMEINTERVAL") + " \n");
+                ddl.append("BATCHTIMEINTERVALMILLIS " + rset.getString("BATCHTIMEINTERVALMILLIS") + " \n");
                 ddl.append("QUEUEPERSISTENT " + rset.getString("QUEUEPERSISTENT") + " \n");
                 ddl.append("DISKSYNCHRONOUS " + rset.getString("DISKSYNCHRONOUS") + " \n");
 
@@ -202,7 +202,7 @@ public class HdfsStoreDAOImpl  implements HdfsStoreDAO
                 ddl.append("MININPUTFILECOUNT " + rset.getString("MININPUTFILECOUNT") + " \n");
                 ddl.append("MAXINPUTFILECOUNT " + rset.getString("MAXINPUTFILECOUNT") + " \n");
                 ddl.append("MINORCOMPACTIONTHREADS " + rset.getString("MINORCOMPACTIONTHREADS") + " \n");
-                ddl.append("MAJORCOMPACTIONINTERVAL " + rset.getString("MAJORCOMPACTIONINTERVAL") + " \n");
+                ddl.append("MAJORCOMPACTIONINTERVALMINS " + rset.getString("MAJORCOMPACTIONINTERVALMINS") + " \n");
                 ddl.append("MAJORCOMPACTIONTHREADS " + rset.getString("MAJORCOMPACTIONTHREADS") + " \n");
 
                 if (rset.getString("CLIENTCONFIGFILE") != null)
@@ -212,8 +212,8 @@ public class HdfsStoreDAOImpl  implements HdfsStoreDAO
 
                 ddl.append("BLOCKCACHESIZE " + rset.getString("BLOCKCACHESIZE") + " \n");
                 ddl.append("MAXWRITEONLYFILESIZE " + rset.getString("MAXWRITEONLYFILESIZE") + " \n");
-                ddl.append("WRITEONLYFILEROLLOVERINTERVAL " + rset.getString("WRITEONLYFILEROLLOVERINTERVAL") + " \n");
-                ddl.append("PURGEINERVAL " + rset.getString("PURGEINERVAL") + "; \n");
+                ddl.append("WRITEONLYFILEROLLOVERINTERVALSECS " + rset.getString("WRITEONLYFILEROLLOVERINTERVALSECS") + " \n");
+                ddl.append("PURGEINERVALMINS " + rset.getString("PURGEINERVALMINS") + "; \n");
 
             }
         }
