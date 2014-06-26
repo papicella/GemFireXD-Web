@@ -71,7 +71,7 @@ Found ${records} type(s).
 
 <c:if test="${!empty arrayresultddl}">
     <fieldset>
-        <legend>Async Eevent Listener DDL</legend>
+        <legend>Type DDL</legend>
         <table id="table_results_ddl" class="data">
             <c:forEach var="result" items="${arrayresultddl}">
                 <tr>

@@ -95,7 +95,7 @@ Found ${records} gateway receiver(s).
 
 <c:if test="${!empty arrayresultddl}">
     <fieldset>
-        <legend>Async Eevent Listener DDL</legend>
+        <legend>Gateway Receiver DDL</legend>
         <table id="table_results_ddl" class="data">
             <c:forEach var="result" items="${arrayresultddl}">
                 <tr>
