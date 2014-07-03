@@ -26,6 +26,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import pivotal.au.se.gemfirexdweb.beans.Login;
 import pivotal.au.se.gemfirexdweb.utils.ConnectionManager;
 
 @Controller
@@ -44,9 +45,12 @@ public class LogoutController
     	cm.removeConnection(session.getId());
     	
     	session.invalidate();
-    	
-    	response.sendRedirect(request.getContextPath() + "/GemFireXD-Web/login");
-    	
-    	return null;
+
+        model.addAttribute("loginAttribute", new Login());
+        // This will resolve to /WEB-INF/jsp/loginpage.jsp
+        return "loginpage";
+
+    	//response.sendRedirect(request.getContextPath() + "/GemFireXD-Web/login");
+    	//return null;
     }
 }
