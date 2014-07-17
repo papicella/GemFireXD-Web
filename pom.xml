@@ -8,7 +8,7 @@
     <name>GemFireXD-Web</name>
 
     <properties>
-        <spring.version>3.2.4.RELEASE</spring.version>
+        <spring.version>3.2.8.RELEASE</spring.version>
     </properties>
 
     <dependencies>
@@ -40,8 +40,14 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
