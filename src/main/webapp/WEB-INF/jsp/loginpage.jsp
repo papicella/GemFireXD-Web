@@ -64,11 +64,11 @@ limitations under the License.
         <table class="formlayout">
             <tr>
                 <td align="right">Username:</td>
-                <td><form:input type="text" path="username" maxlength="30" size="60" value=""/></td>
+                <td><form:input type="text" path="username" maxlength="100" size="60" value=""/></td>
             </tr>
             <tr>
                 <td align="right">Password:</td>
-                <td><form:input type="password" path="password" maxlength="30" size="60" value=""/></td>
+                <td><form:input type="password" path="password" maxlength="100" size="60" value=""/></td>
             </tr>
             <tr>
                 <td align="right">Url:</td>
