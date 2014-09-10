@@ -174,7 +174,7 @@ public class JMXController
         }
 
         model.addAttribute("mbeanNames", returnMbeanList);
-        model.addAttribute("records", mbeanNames.size());
+        model.addAttribute("records", returnMbeanList.size());
         model.addAttribute("search", searchStr);
 
         // This will resolve to /WEB-INF/jsp/showmbeans.jsp
