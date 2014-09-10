@@ -29,5 +29,10 @@ limitations under the License.
 <a href="viewconmap" title="View Connection Map">
   <img class="icon" src="../themes/original/img/Connection.gif" width="16" height="16" alt="View Connections Map" />
   Connection Map
+</a>&nbsp; | &nbsp;
+<a href="jmxmbeans" title="View JMX MBeans">
+    <img class="icon" src="../themes/original/img/b_tblops.png" width="16" height="16" alt="View JMX Mbeans" />
+    JMX MBeans
 </a>
+
 <p />

@@ -58,7 +58,7 @@ Specify at runtime the preferences you wish to use across display pages within G
 
 <form method="post" action="preferences">
 <fieldset>
- <legend>GemFireXD User Preferences Form</legend>
+ <legend>GemFireXD*Web User Preferences Form</legend>
  <table class="formlayout">
   <tr>
    <td align="right">Records To Display for Schema Objects:</td>
@@ -84,6 +84,10 @@ Specify at runtime the preferences you wish to use across display pages within G
       </c:choose>
      </select>    
    </td>
+   <tr>
+     <td align="right">Jolokia HTTP Rest URL:</td>
+     <td><input type="text" name="jolokiaURL" size="50" value="${userPref.jolokiaURL}" maxlength="250" /></td>
+   </tr>
   </tr>
  </table>
 </fieldset>

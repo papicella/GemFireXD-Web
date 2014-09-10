@@ -22,6 +22,7 @@ public class UserPref
 	private int maxRecordsinSQLQueryWindow;
 	private String autoCommit;
 	private int historySize;
+    private String jolokiaURL;
 	
 	public UserPref()
 	{
@@ -29,13 +30,15 @@ public class UserPref
 	   maxRecordsinSQLQueryWindow = 5000;
 	   autoCommit = "N";
 	   historySize = 50;
+       jolokiaURL = "http://localhost:8778/jolokia/";
 	}
 
-    public UserPref(int recordsToDisplay, int maxRecordsinSQLQueryWindow, String autoCommit, int historySize) {
+    public UserPref(int recordsToDisplay, int maxRecordsinSQLQueryWindow, String autoCommit, int historySize, String jolokiaURL) {
         this.recordsToDisplay = recordsToDisplay;
         this.maxRecordsinSQLQueryWindow = maxRecordsinSQLQueryWindow;
         this.autoCommit = autoCommit;
         this.historySize = historySize;
+        this.jolokiaURL = jolokiaURL;
     }
 
     public int getRecordsToDisplay() {
@@ -71,14 +74,22 @@ public class UserPref
 		this.historySize = historySize;
 	}
 
-	@Override
-	public String toString() {
-		return "UserPref [recordsToDisplay=" + recordsToDisplay
-				+ ", maxRecordsinSQLQueryWindow=" + maxRecordsinSQLQueryWindow
-				+ ", autoCommit=" + autoCommit + ", historySize=" + historySize
-				+ "]";
-	}
-	
-	
-	
+    public String getJolokiaURL() {
+        return jolokiaURL;
+    }
+
+    public void setJolokiaURL(String jolokiaURL) {
+        this.jolokiaURL = jolokiaURL;
+    }
+
+    @Override
+    public String toString() {
+        return "UserPref{" +
+                "recordsToDisplay=" + recordsToDisplay +
+                ", maxRecordsinSQLQueryWindow=" + maxRecordsinSQLQueryWindow +
+                ", autoCommit='" + autoCommit + '\'' +
+                ", historySize=" + historySize +
+                ", jolokiaURL='" + jolokiaURL + '\'' +
+                '}';
+    }
 }

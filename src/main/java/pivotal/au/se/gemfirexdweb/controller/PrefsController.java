@@ -113,7 +113,9 @@ public class PrefsController
         	(Integer.parseInt(request.getParameter("maxRecordsinSQLQueryWindow")));
         userPrefs.setAutoCommit
     		((String)request.getParameter("autoCommit"));
-        
+        userPrefs.setJolokiaURL
+            ((String)request.getParameter("jolokiaURL"));
+
         ConnectionManager cm = ConnectionManager.getInstance();
         Connection conn = AdminUtil.getConnection((String)session.getAttribute("user_key"));
         
@@ -128,7 +130,7 @@ public class PrefsController
         
         cm.updateConnection(conn, (String)session.getAttribute("user_key"));
         
-		model.addAttribute("saved", "Succesfully saved application preferences");
+		model.addAttribute("saved", "Successfully saved application preferences");
 		session.setAttribute("userPref", userPrefs);
 		
     	// This will resolve to /WEB-INF/jsp/preferences.jsp

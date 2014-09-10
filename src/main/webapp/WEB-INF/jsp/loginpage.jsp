@@ -37,7 +37,7 @@ limitations under the License.
 <h2><fmt:message key="sqlfireweb.appname" /> Login Page</h2>
 
 <div class="notice">
-    Supports Pivotal GemFireXD
+    Supports Pivotal GemFireXD 1.x
 </div>
 
 <c:if test="${!empty error}">
@@ -54,7 +54,7 @@ limitations under the License.
     </p>
     <p>
         <img src="../themes/original/img/b_tipp.png" border="0" />
-        To avoid using the login page auto login as follows -> GemFireXD-Web/autologin?url=jdbc:sqlfire://192.168.1.7:1527/&username=app&passwd=app
+        To avoid using the login page auto login as follows -> GemFireXD-Web/autologin?url=jdbc:gemfirexd://192.168.1.7:1527/&username=app&passwd=app
     </p>
 </font>
 

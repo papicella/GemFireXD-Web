@@ -22,8 +22,8 @@ limitations under the License.
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>GemFireXD*Web</title>
-  <link rel="stylesheet" type="text/css" href="css/isqlfire.css" />
-  <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
+  <link rel="stylesheet" type="text/css" href="../css/isqlfire.css" />
+  <link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
 </head>
 <frameset cols="200,*" rows="*" id="mainFrameset">
   <frame 
@@ -38,7 +38,7 @@ limitations under the License.
     name="frame_content" />
   <noframes>
     <body>
-        <p>SQLFire*Web is more friendly with a <b>frames-capable</b> browser.</p>
+        <p>GemFireXD*Web is more friendly with a <b>frames-capable</b> browser.</p>
     </body>
   </noframes>
 </frameset>
