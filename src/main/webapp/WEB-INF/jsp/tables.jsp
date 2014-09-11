@@ -131,7 +131,18 @@ Found ${records} table(s). &nbsp; &nbsp;
     <c:forEach var="row" varStatus="loop" items="${dataLocationResults.rows}">
       <tr class="odd">
         <c:forEach var="columnName" items="${dataLocationResults.columnNames}">
-          <td align="center"><c:out value="${row[columnName]}"/></td>
+            <c:choose>
+                <c:when test="${columnName == 'MEMBER'}">
+                    <td align="center">
+                        <a href="members?memberId=${row[columnName]}&memberAction=ALLMEMBEREVENTINFO">
+                            <c:out value="${row[columnName]}"/>
+                        </a>
+                    </td>
+                </c:when>
+                <c:otherwise>
+                    <td align="center"><c:out value="${row[columnName]}"/></td>
+                </c:otherwise>
+            </c:choose>
         </c:forEach>           
        </tr>
     </c:forEach>  

@@ -173,7 +173,11 @@ Found ${records} constraint(s).
 	<c:forEach var="entry" varStatus="loop" items="${cons}">
   	  <tr class="${((loop.index % 2) == 0) ? 'even' : 'odd'}">
 	  	   <td align="center">${entry.schemaName}</td>
-	  	   <td align="center">${entry.tableName}</td>
+	  	   <td align="center">
+               <a href="tableviewer?tabName=${entry.tableName}&selectedSchema=${chosenSchema}">
+                   <c:out value="${entry.tableName}"/>
+               </a>
+           </td>
 	  	   <td align="center">${entry.constraintName}</td>
 	  	   <td align="center">
 	  	   	<c:choose>

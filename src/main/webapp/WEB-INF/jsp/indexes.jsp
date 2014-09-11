@@ -153,7 +153,11 @@ Found ${records} index(es).
 	  	   <td align="center">${entry.schemaName}</td>
 	  	   <td align="center">${entry.index}</td>
 	  	   <td align="center">${entry.unique}</td>
-	  	   <td align="center">${entry.table}</td>
+	  	   <td align="center">
+               <a href="tableviewer?tabName=${entry.table}&selectedSchema=${chosenSchema}">
+                   <c:out value="${entry.table}"/>
+               </a>
+           </td>
 	  	   <td align="center">${entry.indexType}</td>
 	  	   <td align="center">${entry.columnsAndOrder}</td>
 	  	   <td align="center">

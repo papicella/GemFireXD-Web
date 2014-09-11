@@ -38,11 +38,11 @@ limitations under the License.
         // ]]>
     </script>
     <script src="../js/functions.js" type="text/javascript"></script>
-    <title><fmt:message key="sqlfireweb.appname" /> GemFireXD MBean Viewer</title>
+    <title><fmt:message key="sqlfireweb.appname" /> MBean Viewer</title>
 </head>
 <body>
 
-<h2><fmt:message key="sqlfireweb.appname" /> GemFireXD MBean Viewer</h2>
+<h2><fmt:message key="sqlfireweb.appname" /> MBean Viewer</h2>
 
 <jsp:include page="toolbar.jsp" flush="true" />
 

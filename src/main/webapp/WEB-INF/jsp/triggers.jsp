@@ -137,6 +137,11 @@ Found ${records} trigger(s).
                                     <c:out value="${row[columnName]}"/>
                                 </a>
                             </c:when>
+                            <c:when test="${columnName == 'TABLENAME'}">
+                                <a href="tableviewer?tabName=${row[columnName]}&selectedSchema=${chosenSchema}">
+                                    <c:out value="${row[columnName]}"/>
+                                </a>
+                            </c:when>
                             <c:when test="${columnName == 'EVENT'}">
                                 <c:choose>
                                     <c:when test="${row[columnName] == 'U'}">
