@@ -1,14 +1,15 @@
 <h1> GemFireXD*Web </h1>
 
-GemFireXD*Web is New Browser-based Database Schema Management Tool Available for Pivotal GemFireXD
+GemFireXD*Web is New Browser-based Database Schema Management Tool Available for Pivotal GemFireXD which allows users to view/alter schema objects as well as GemFireXD schema objects.
 
 GemFireXD*Web is a translation of phpmyadmin to GemFireXD and the GemFireXD*Web UI is base on the look and feel of phpmyadmin.
 
-GemFireXD*Web Supports the following new features
+GemFireXD*Web Supports the following features
 
 <ul>
     <li>Browse / Administer HDFS Stores</li>
     <li>Browse / Administer HDFS Tables</li>
+    <li>Browse / Administer Schema Objects</li>
     <li>Auto Login without going through the Login Page</li>
     <li>Disconnect GemFireXD*Web JDBC Connections from GemFireXD</li>
     <li>Schema Creation Dialogs</li>
@@ -16,7 +17,39 @@ GemFireXD*Web Supports the following new features
     <li>Grant table / program unit privileges when AUTHENTICATION is enabled</li>
     <li>JMX Mbean Monitoring</li>
     <li>Save Query Results</li>
+    <li>View member start properties</li>
+    <li>SQL Worksheet to load/execute SQL DML/DDL statements</li>
+    <li>View memory Usage for Tables/Indexes</li>
+    <li>View data distribution for Tables across members and SQL queries</li>
+    <li>Stop/Start Gateway senders / Async Event Listeners</li>
 </ul>
+
+<h2>Download</h2>
+
+Download GemFireXD*Web using the link below. 
+
+Current GA release due out same time as GemFireXD - <a href="https://dl.dropboxusercontent.com/u/15829935/fe-demos/GemFireXDWeb/download/gfxdw.war">gfxdw.war</a>
+
+<h2>Deployment via WAR file</h2>
+
+The following is based on deployment to Pivotal tcServer 
+
+1. Download WAR via link above
+2. Create / Start instance
+
+```
+> ./tcruntime-instance.sh create gfxdw
+> ./tcruntime-ctl.sh gfxdw start
+```
+
+3. Copy gfxdw.war to $TCSERVER_HOME/gfxdw/webapps
+
+4. Access as follows
+
+```
+http://{server-ip-address}:{server-port}/gfxdw/
+```
+
 
 Created by Pas Apicella - <a href="mailto:papicella@pivotal.io">papicella@pivotal.io</a> for Pivotal GemFireXD Schema Management
 
