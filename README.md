@@ -82,5 +82,8 @@ Example:
 http://{server-ip-address}:{server-port}/gfxdwtemplate/
 ```
 
+
+![alt tag](https://dl.dropboxusercontent.com/u/15829935/fe-demos/GemFireXDWeb/images/welcome.png)
+
 Created by Pas Apicella - <a href="mailto:papicella@pivotal.io">papicella@pivotal.io</a> for Pivotal GemFireXD Schema Management
 
