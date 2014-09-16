@@ -2,9 +2,7 @@ GemFireXD*Web - New Browser-based Database Schema Management Tool Available for 
 
 GemFireXD*Web is a translation of phpmyadmin to GemFireXD and the GemFireXD*Web UI is base on the look and feel of phpmyadmin.
 
-```html
-<h2>Example of code</h2>
-```
+<h2>Features</h2>
 
     
 Created by Pas Apicella - papicella@gopivotal.com for GemFireXD Schema Management
