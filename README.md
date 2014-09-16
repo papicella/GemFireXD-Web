@@ -1,4 +1,4 @@
-<h1> GemFireXD*Web </h1>
+<h1> Pivotal GemFireXD*Web </h1>
 
 GemFireXD*Web is New Browser-based Database Schema Management Tool Available for Pivotal GemFireXD which allows users to view/alter schema objects as well as GemFireXD schema objects.
 
@@ -50,6 +50,37 @@ The following is based on deployment to Pivotal tcServer
 http://{server-ip-address}:{server-port}/gfxdw/
 ```
 
+<h2>Deployment via Template with Pivotal tcServer</h2>
+
+1. Download the template zip from the location below.
+
+<a href="https://dl.dropboxusercontent.com/u/15829935/fe-demos/GemFireXDWeb/download/gemfirexdweb.zip">gemfirexdweb.zip</a>
+
+2. Extract it in your $TCSERVER_HOME/templates directory
+
+3. Create new instance based on this template
+
+```
+./tcruntime-instance.sh create --template gemfirexdweb {instance-name}
+```
+
+Example:
+
+```
+./tcruntime-instance.sh create --template gemfirexdweb gfxdwtemplate
+```
+
+4. Start tcServer instance
+
+```
+./tcruntime-ctl.sh gfxdwtemplate start
+```
+
+5. Browse app it should be started automatically
+
+```
+http://{server-ip-address}:{server-port}/gfxdwtemplate/
+```
 
 Created by Pas Apicella - <a href="mailto:papicella@pivotal.io">papicella@pivotal.io</a> for Pivotal GemFireXD Schema Management
 
