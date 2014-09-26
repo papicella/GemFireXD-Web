@@ -86,10 +86,12 @@ http://{server-ip-address}:{server-port}/gfxdwtemplate/
 
 <h2>Enabling JMX monitoring</h2>
 
-1. Start a locator using the
+1. Start a locator using the following syntax to add jolokia-jvm-1.2.2-agent.jar
 
 ```
-gfxd locator start -peer-discovery-address=$IP -peer-discovery-port=41111 -jmx-manager-port=1103 -jmx-manager-start=true -jmx-manager-http-port=7075 -conserve-sockets=false -client-bind-address=$IP -client-port=1527 -dir=locator -sync=false -J-javaagent:$CURRENT_DIR/lib/jolokia-jvm-1.2.2-agent.jar=host=0.0.0.0
+gfxd locator start -peer-discovery-address=$IP -peer-discovery-port=41111 -jmx-manager-port=1103 \
+-jmx-manager-start=true -jmx-manager-http-port=7075 -conserve-sockets=false -client-bind-address=$IP \ 
+-client-port=1527 -dir=locator -sync=false -J-javaagent:$CURRENT_DIR/lib/jolokia-jvm-1.2.2-agent.jar=host=0.0.0.0
 ```
 
 2. Download jolokia-jvm-1.2.2-agent.jar from the link below.
@@ -98,6 +100,10 @@ gfxd locator start -peer-discovery-address=$IP -peer-discovery-port=41111 -jmx-m
 http://www.jolokia.org/download.html
 ``` 
  
+![alt tag](https://dl.dropboxusercontent.com/u/15829935/fe-demos/GemFireXDWeb/images/jmx-url.png)
+
+![alt tag](https://dl.dropboxusercontent.com/u/15829935/fe-demos/GemFireXDWeb/images/jmx.png)
+
 
 Created by Pas Apicella - <a href="mailto:papicella@pivotal.io">papicella@pivotal.io</a> for Pivotal GemFireXD Schema Management
 
