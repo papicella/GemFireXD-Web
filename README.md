@@ -28,7 +28,7 @@ GemFireXD*Web Supports the following features
 
 Download GemFireXD*Web using the link below. 
 
-Current GA release due out same time as GemFireXD - <a href="https://dl.dropboxusercontent.com/u/15829935/fe-demos/GemFireXDWeb/download/gfxdw.war">gfxdw.war</a>
+Current GA release 1.0, supports GemFireXD 1.3 - <a href="https://dl.dropboxusercontent.com/u/15829935/fe-demos/GemFireXDWeb/download/gfxdw.war">gfxdw.war</a>
 
 <h2>Deployment via WAR file</h2>
 
@@ -105,6 +105,33 @@ http://www.jolokia.org/download.html
 ![alt tag](https://dl.dropboxusercontent.com/u/15829935/fe-demos/GemFireXDWeb/images/jmx-url.png)
 
 ![alt tag](https://dl.dropboxusercontent.com/u/15829935/fe-demos/GemFireXDWeb/images/jmx.png)
+
+<h2>Saving Query Results</h2>
+
+GemFireXD*Web allows you to save query results in CSV or JSON format. The output for each is as follows. This could be a whole table
+or simply a restricted view of the table using a where clause for example.
+
+<u>CSV</u>
+
+```
+"EMPNO","ENAME","JOB","MGR","HIREDATE","SAL","COMM","DEPTNO"
+"7369","SMITH","CLERK","7902","17-Dec-1980","800","","20"
+"7566","JONES","MANAGER","7839","02-Apr-1981","2975","","20"
+"7788","SCOTT","ANALYST","7566","09-Dec-1982","3000","","20"
+"7876","ADAMS","CLERK","7788","12-Jan-1983","1100","","20"
+"7902","FORD","ANALYST","7566","03-Dec-1981","3000","","20"
+```
+
+<u>JSON</u>
+
+```
+{"fields":[{"name":"DEPTNO","type":"INTEGER"},{"name":"DNAME","type":"VARCHAR"},
+{"name":"LOC","type":"VARCHAR"}],"records":[[10,"ACCOUNTING","NEW YORK"],
+[20,"RESEARCH","DALLAS"],[30,"SALES","CHICAGO"],[40,"OPERATIONS","BRISBANE"],
+[50,"MARKETING","ADELAIDE"],[60,"DEV","PERTH"],[70,"SUPPORT","SYDNEY"]]}
+```
+
+![alt tag](https://dl.dropboxusercontent.com/u/15829935/fe-demos/GemFireXDWeb/images/savequery.png)
 
 
 Created by Pas Apicella - <a href="mailto:papicella@pivotal.io">papicella@pivotal.io</a> for Pivotal GemFireXD Schema Management
