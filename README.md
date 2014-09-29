@@ -98,7 +98,7 @@ JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home"
 AGENT_PATHS=""
 JAVA_AGENTS=""
 JAVA_LIBRARY_PATH=""
-JVM_OPTS="-Xms1g -Xmx1g -Xss256K"
+JVM_OPTS="-Xms2g -Xmx2g -Xss256K"
 JAVA_OPTS="$JVM_OPTS $AGENT_PATHS $JAVA_AGENTS $JAVA_LIBRARY_PATH"
 ```
 
