@@ -91,7 +91,7 @@ For example to increase the memory settings in Pivotal tcServer perform the step
 
 1. Edit $TCSERVER_HOME/{instance-name}/bin/setenv.sh
 
-2. Increase memory to 2G of heap as shown below.
+2. Increase memory to 2G of heap as shown below and re-start the instance
 
 ```
 JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home"
@@ -101,8 +101,6 @@ JAVA_LIBRARY_PATH=""
 JVM_OPTS="-Xms2g -Xmx2g -Xss256K"
 JAVA_OPTS="$JVM_OPTS $AGENT_PATHS $JAVA_AGENTS $JAVA_LIBRARY_PATH"
 ```
-
-3. Re-start the instance.
 
 <h2>Enabling JMX monitoring</h2>
 
