@@ -58,6 +58,7 @@ public class QueryController
 	protected static Logger logger = Logger.getLogger("controller");
     private static final String FILENAME = "worksheet.sql";
     private static final String FILENAME_EXPORT = "query-output.csv";
+    private static final String FILENAME_EXPORT_JSON = "query-output.json";
     private static final String SAVE_CONTENT_TYPE = "application/x-download";
 
 	// add comments here
@@ -132,6 +133,20 @@ public class QueryController
 
                 ServletOutputStream out = response.getOutputStream();
                 out.println(exportDataCSV);
+                out.close();
+                return null;
+            }
+            else if (action.trim().equals("export_json"))
+            {
+                logger.debug("export data to JSON action requested");
+                String query = request.getParameter("query");
+                String exportDataJSON = QueryUtil.runQueryForJSON(conn, query);
+
+                response.setContentType(SAVE_CONTENT_TYPE);
+                response.setHeader("Content-Disposition", "attachment; filename=" + FILENAME_EXPORT_JSON);
+
+                ServletOutputStream out = response.getOutputStream();
+                out.println(exportDataJSON);
                 out.close();
                 return null;
             }

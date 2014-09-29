@@ -398,8 +398,13 @@ Explain?
  </c:forEach>
 </c:if>
 
-<c:url var="h" value="/GemFireXD-Web/query">
+<c:url var="csvurl" value="/GemFireXD-Web/query">
     <c:param name="action" value="export" />
+    <c:param name="query" value="${querysql}" />
+</c:url>
+
+<c:url var="jsonurl" value="/GemFireXD-Web/query">
+    <c:param name="action" value="export_json" />
     <c:param name="query" value="${querysql}" />
 </c:url>
 
@@ -425,8 +430,14 @@ Explain?
        </tr>
        <tr>
            <td>
-               <a href="${h}" title="Export Data">
-                   <img class="icon" src="../themes/original/img/Save-To-File.png" alt="Export Data" border="0" />
+               <a href="${csvurl}" title="Export Data to CSV">
+                   <img class="icon" src="../themes/original/img/b_save.png" alt="Export Data to CSV" border="0" />
+                   Save as CSV
+               </a>
+               &nbsp; | &nbsp;
+               <a href="${jsonurl}" title="Export Data to JSON">
+                   <img class="icon" src="../themes/original/img/b_save.png" alt="Export Data to JSON" border="0" />
+                   Save as JSON
                </a>
            </td>
        </tr>
@@ -470,8 +481,12 @@ Explain?
     <c:when test="${fn:endsWith(item.key,'SELECT')}">
        <fieldset>
        <legend>Query Result</legend>
-       <c:url var="x" value="/GemFireXD-Web/query">
+       <c:url var="csvurl2" value="/GemFireXD-Web/query">
            <c:param name="action" value="export" />
+           <c:param name="query" value="${item.value[0]}" />
+       </c:url>
+       <c:url var="jsonurl2" value="/GemFireXD-Web/query">
+           <c:param name="action" value="export_json" />
            <c:param name="query" value="${item.value[0]}" />
        </c:url>
 	   <table id="table_results" class="data">
@@ -482,8 +497,14 @@ Explain?
 	       </tr>
            <tr>
                <td>
-                   <a href="${x}" title="Export Data">
-                       <img class="icon" src="../themes/original/img/Save-To-File.png" alt="Export Data" border="0" />
+                   <a href="${csvurl2}" title="Export Data to CSV">
+                       <img class="icon" src="../themes/original/img/b_save.png" alt="Export Data to CSV" border="0" />
+                       Save as CSV
+                   </a>
+                   &nbsp; | &nbsp;
+                   <a href="${jsonurl2}" title="Export Data to JSON">
+                       <img class="icon" src="../themes/original/img/b_save.png" alt="Export Data to JSON" border="0" />
+                       Save as JSON
                    </a>
                </td>
            </tr>

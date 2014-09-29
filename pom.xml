@@ -79,6 +79,11 @@
             <artifactId>jolokia-client-java</artifactId>
             <version>1.2.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>3.4.2</version>
+        </dependency>
     </dependencies>
 
     <build>

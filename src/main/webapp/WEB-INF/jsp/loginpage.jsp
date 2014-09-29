@@ -37,7 +37,7 @@ limitations under the License.
 <h2><fmt:message key="sqlfireweb.appname" /> Login Page</h2>
 
 <div class="notice">
-    Supports Pivotal GemFireXD 1.x
+    Supports Pivotal GemFireXD 1.3.x
 </div>
 
 <c:if test="${!empty error}">
