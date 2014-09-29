@@ -84,6 +84,26 @@ http://{server-ip-address}:{server-port}/gfxdwtemplate/
 
 ![alt tag](https://dl.dropboxusercontent.com/u/15829935/fe-demos/GemFireXDWeb/images/welcome.png)
 
+<h2>JVM heap Settings</h2>
+
+GemFireXD*Web will run with as low as 512M oif heap memory. It is recommended you run it with at least 1G of memory.
+For example to increase the memory settings in Pivotal tcServer perform the steps below.
+
+1. Edit $TCSERVER_HOME/{instance-name}/bin/setenv.sh
+
+2. Increase memory to 2G of heap as shown below.
+
+```
+JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home"
+AGENT_PATHS=""
+JAVA_AGENTS=""
+JAVA_LIBRARY_PATH=""
+JVM_OPTS="-Xms1g -Xmx1g -Xss256K"
+JAVA_OPTS="$JVM_OPTS $AGENT_PATHS $JAVA_AGENTS $JAVA_LIBRARY_PATH"
+```
+
+3. Re-start the instance.
+
 <h2>Enabling JMX monitoring</h2>
 
 1. Start a locator using the following syntax to add jolokia-jvm-1.2.2-agent.jar
