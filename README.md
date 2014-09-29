@@ -16,7 +16,7 @@ GemFireXD*Web Supports the following features
     <li>New Table Viewer to view everything about a table including sample data</li>
     <li>Grant table / program unit privileges when AUTHENTICATION is enabled</li>
     <li>JMX Mbean Monitoring</li>
-    <li>Save Query Results</li>
+    <li>Save Query Results in CSV or JSON format</li>
     <li>View member start properties</li>
     <li>SQL Worksheet to load/execute SQL DML/DDL statements</li>
     <li>View memory Usage for Tables/Indexes</li>
