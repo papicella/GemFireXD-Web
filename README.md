@@ -1,6 +1,6 @@
 <h1> Pivotal GemFireXD*Web </h1>
 
-![alt tag](https://dl.dropboxusercontent.com/u/15829935/fe-demos/GemFireXDWeb/images/GemFireXD1.png) 
+![alt tag](https://dl.dropboxusercontent.com/u/15829935/fe-demos/GemFireXDWeb/images/GemFireXD1.png) IS ![alt tag](https://dl.dropboxusercontent.com/u/15829935/fe-demos/GemFireXDWeb/images/PoweredByPivotal1.png) 
 
 GemFireXD*Web is New Browser-based Database Schema Management Tool Available for Pivotal GemFireXD which allows users to view/alter schema objects as well as GemFireXD schema objects.
 
