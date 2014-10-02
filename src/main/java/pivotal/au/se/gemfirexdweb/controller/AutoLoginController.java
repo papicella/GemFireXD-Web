@@ -49,12 +49,15 @@ public class AutoLoginController
     	logger.debug("Received request to auto login");
     	ConnectionManager cm = ConnectionManager.getInstance();
     	Connection conn;
-    	
+        String username = null;
+        String passwd = null;
+        String url = null;
+
     	try
     	{
-            String username = fixRequestParam(request.getParameter("username"));
-            String passwd = fixRequestParam(request.getParameter("passwd"));
-            String url = fixRequestParam(request.getParameter("url"));
+            username = fixRequestParam(request.getParameter("username"));
+            passwd = fixRequestParam(request.getParameter("passwd"));
+            url = fixRequestParam(request.getParameter("url"));
 
             logger.debug ("username = " + username);
             logger.debug ("passwd = " + passwd);
@@ -101,6 +104,11 @@ public class AutoLoginController
     	catch (Exception ex)
     	{
     		model.addAttribute("error", ex.getMessage());
+            Login login = new Login();
+            login.setUsername(username);
+            login.setUrl(url);
+
+            model.addAttribute("loginAttribute", login);
     		// This will resolve to /WEB-INF/jsp/loginpage.jsp
     		return "loginpage";
     	}

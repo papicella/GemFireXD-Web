@@ -144,7 +144,10 @@ public class LoginController
 
     	// Create new QueryWindow and add to model
     	// This is the formBackingObject
-    	model.addAttribute("loginAttribute", new Login());
+        Login login = new Login();
+        login.setUrl("jdbc:gemfirexd://localhost:1527/");
+
+    	model.addAttribute("loginAttribute", login);
     	// This will resolve to /WEB-INF/jsp/loginpage.jsp
     	return "loginpage";
     }
@@ -205,6 +208,12 @@ public class LoginController
     	catch (Exception ex)
     	{
     		model.addAttribute("error", ex.getMessage());
+
+            Login login = new Login();
+            login.setUsername(loginAttribute.getUsername());
+            login.setUrl(loginAttribute.getUrl());
+
+            model.addAttribute("loginAttribute", login);
     		// This will resolve to /WEB-INF/jsp/loginpage.jsp
     		return "loginpage";
     	}

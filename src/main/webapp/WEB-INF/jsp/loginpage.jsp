@@ -54,7 +54,7 @@ limitations under the License.
     </p>
     <p>
         <img src="../themes/original/img/b_tipp.png" border="0" />
-        To avoid using the login page auto login as follows -> GemFireXD-Web/autologin?url=jdbc:gemfirexd://192.168.1.7:1527/&username=app&passwd=app
+        To avoid using the login page auto login as follows -> GemFireXD-Web/autologin?url=jdbc:gemfirexd://localhost:1527/&username=app&passwd=app
     </p>
 </font>
 
@@ -72,7 +72,7 @@ limitations under the License.
             </tr>
             <tr>
                 <td align="right">Url:</td>
-                <td><form:input type="text" path="url" maxlength="450" size="60" value="jdbc:gemfirexd://localhost:1527/" /></td>
+                <td><form:input type="text" path="url" maxlength="450" size="60" value="" /></td>
             </tr>
         </table>
     </fieldset>
