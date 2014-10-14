@@ -180,6 +180,12 @@ Found ${records} ${type}(s).
 <br />
 </c:if>
 
+<c:if test="${procParamsRows == 0}">
+    <p />
+    <i>No parameters exist for Stored ${type} ${procName} </i>
+    <p />
+</c:if>
+
 <c:if test="${!empty arrayresult}">
 <fieldset>
  <legend>Multi Submit Results</legend>

@@ -113,6 +113,8 @@ public class ProcController
     					    (String)session.getAttribute("user_key"));
     			
     			model.addAttribute("procParams", procParams);
+                logger.debug("procParamsRows = " + procParams.size());
+                model.addAttribute("procParamsRows", procParams.size());
     			model.addAttribute("procName", (String)request.getParameter("procName"));
     		}
             else if (procAction.equalsIgnoreCase("PRIVS"))
