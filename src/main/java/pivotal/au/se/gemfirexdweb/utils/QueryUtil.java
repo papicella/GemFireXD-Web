@@ -450,6 +450,10 @@ public class QueryUtil
                   "group by object_type " +
                   "union " +
                   "select object_type, count(*) from (select 1, 'Hdfsstore' as OBJECT_TYPE from SYS.SYSHDFSSTORES) ll " +
+                  "group by object_type " +
+                  "union " +
+                  "select object_type, count(*) " +
+                  "from (select 1, 'Jar' as OBJECT_TYPE from sys.jars) mm " +
                   "group by object_type";
 
           PreparedStatement pstmt = null;

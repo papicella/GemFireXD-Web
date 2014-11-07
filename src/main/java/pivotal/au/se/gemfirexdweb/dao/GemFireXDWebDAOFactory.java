@@ -30,6 +30,8 @@ import pivotal.au.se.gemfirexdweb.dao.hdfsstores.HdfsStoreDAO;
 import pivotal.au.se.gemfirexdweb.dao.hdfsstores.HdfsStoreDAOImpl;
 import pivotal.au.se.gemfirexdweb.dao.indexes.IndexDAO;
 import pivotal.au.se.gemfirexdweb.dao.indexes.IndexDAOImpl;
+import pivotal.au.se.gemfirexdweb.dao.jars.JarDAO;
+import pivotal.au.se.gemfirexdweb.dao.jars.JarDAOImpl;
 import pivotal.au.se.gemfirexdweb.dao.members.MemberDAO;
 import pivotal.au.se.gemfirexdweb.dao.members.MemberDAOImpl;
 import pivotal.au.se.gemfirexdweb.dao.stored.StoredProcDAO;
@@ -109,4 +111,10 @@ public class GemFireXDWebDAOFactory
      {
         return new HdfsStoreDAOImpl();
      }
+
+     public static JarDAO getJarStoreDAO()
+    {
+        return new JarDAOImpl();
+    }
+
 }

@@ -80,6 +80,7 @@ public class AdminUtil
         schemaMap.put("TableHDFS", "0");
         schemaMap.put("Hdfsstore", "0");
         schemaMap.put("TableOFFHEAP", "0");
+        schemaMap.put("Jar", "0");
 		return schemaMap;
 	}
 }

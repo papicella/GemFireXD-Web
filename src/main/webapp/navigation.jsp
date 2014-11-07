@@ -129,11 +129,17 @@ limitations under the License.
       Gateway Senders (${sessionScope.schemaMap['Sender']})
     </a>
    </li>
-    <li>
+   <li>
     <a href="GemFireXD-Web/gatewayreceivers" title="View Gateway Reciever">
-      <img class="icon" src="./themes/original/img/b_sdb.png" width="16" height="16" alt="View Gateway Reciever" />
-      Gateway Receivers (${sessionScope.schemaMap['Receiver']})
+      <img class="icon" src="./themes/original/img/b_sdb.png" width="16" height="16" alt="View Gateway Receiver" />
+      Gateway Receiver (${sessionScope.schemaMap['Receiver']})
     </a>
+   </li>
+   <li>
+     <a href="GemFireXD-Web/jars" title="View Jars">
+         <img class="icon" src="./themes/original/img/s_vars.png" width="16" height="16" alt="View Jars" />
+         Jars (${sessionScope.schemaMap['Jar']})
+     </a>
    </li>
    <li>
     <a href="GemFireXD-Web/displayqueryreports" title="View Reports">
