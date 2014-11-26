@@ -41,7 +41,7 @@ limitations under the License.
 <jsp:include page="toolbar.jsp" flush="true" />
 
 <div class="notice">
-    Found ${records} jars(s).
+    Found ${records} Jar(s).
 </div>
 
 <c:if test="${!empty result}">
